@@ -17,9 +17,13 @@ export abstract class Portal {
       newsUrls.forEach((url) => this.parseNews(url));
     }
 
-    abstract getNewsLinks(html: string): string[]
+    abstract getNewsLinks(html: string): (string | undefined)[]
   
-    private parseNews = async (url: string): Promise<void> => {
+    private parseNews = async (url: string | undefined): Promise<void> => {
+      if (!url) {
+        return;
+      }
+
       const { data: html } = await axios.get(url);
       const $ = cheerio.load(html);
     
@@ -90,6 +94,7 @@ export abstract class Portal {
           if (isInteresting === true) {
             return INTERESTING_CITIES[i];
           }
+          return undefined;
         })
         .filter((city) => city);
     }

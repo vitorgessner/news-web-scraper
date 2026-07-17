@@ -7,12 +7,12 @@ export class PoliciaFederalPortal extends Portal {
         super(url);
     }
 
-    getNewsLinks(html: string): string[] {
+    getNewsLinks(html: string): (string | undefined)[] {
         const $ = cheerio.load(html);
         const length = $(".tileHeadline > a", html).length;
         const newsUrls = [];
         for (let i = 0; i < length; i++) {
-        newsUrls.push($(".tileHeadline > a", html)[i].attribs.href);
+        newsUrls.push($(".tileHeadline > a", html)[i]?.attribs.href);
         }
     
         return newsUrls;
