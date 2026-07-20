@@ -4,3 +4,5 @@ export const INTERESTING_CITIES = [
   "navegantes",
   "barra velha",
 ];
+
+export const citiesRegex = new RegExp(`\\b(${INTERESTING_CITIES.join('|')})\\b`, 'i');
